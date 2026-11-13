@@ -1,11 +1,20 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 import { CleanWashLogo } from '../../components/CleanWashIllustrations';
+import { PrimaryGradientButton } from '../../components/PrimaryGradientButton';
+import { useAuth } from '../../context/AuthContext';
 import { useOrder } from '../../context/OrderContext';
 
 export default function ProfileScreen() {
   const { address } = useOrder();
+  const { user, isLoggedIn, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    router.replace('/login');
+  };
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
@@ -18,22 +27,89 @@ export default function ProfileScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+        {/* Profile Header Card */}
         <View style={styles.profileCard}>
-          <CleanWashLogo size={64} />
-          <Text style={styles.name}>Pelanggan CleanWash</Text>
-          <Text style={styles.phone}>+62 812-3456-7890</Text>
+          <CleanWashLogo size={66} />
+          <Text style={styles.name}>
+            {isLoggedIn && user ? user.name : 'Tamu CleanWash'}
+          </Text>
+          <Text style={styles.phone}>
+            {isLoggedIn && user ? user.phone : 'Belum masuk ke akun'}
+          </Text>
+          {isLoggedIn && user?.email ? (
+            <Text style={styles.email}>{user.email}</Text>
+          ) : null}
         </View>
 
+        {/* Info Detail Card */}
         <View style={styles.infoCard}>
           <Text style={styles.infoLabel}>Alamat Utama</Text>
           <Text style={styles.infoValue}>{address}</Text>
           <View style={styles.divider} />
+
           <Text style={styles.infoLabel}>Status Akun</Text>
-          <Text style={styles.infoValue}>Pelanggan Baru (Promo 15% Tersedia)</Text>
+          <Text style={styles.infoValue}>
+            {isLoggedIn && user
+              ? user.isNewCustomer
+                ? 'Pelanggan Baru (Promo 15% Tersedia)'
+                : 'Pelanggan Terdaftar'
+              : 'Mode Tamu'}
+          </Text>
           <View style={styles.divider} />
+
           <Text style={styles.infoLabel}>Cabang Terdekat</Text>
           <Text style={styles.infoValue}>LaundryWash Sragen Kota</Text>
         </View>
+
+        {/* Auth Actions */}
+        {isLoggedIn ? (
+          <View style={styles.authActionSection}>
+            <Pressable
+              onPress={() => router.push('/login')}
+              style={({ pressed }) => [
+                styles.outlineBtn,
+                pressed && styles.pressed,
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel="Ganti Akun"
+            >
+              <Text style={styles.outlineBtnText}>Ganti Akun</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={handleLogout}
+              style={({ pressed }) => [
+                styles.logoutBtn,
+                pressed && styles.pressed,
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel="Keluar dari Akun"
+            >
+              <Text style={styles.logoutBtnText}>Keluar (Logout)</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <View style={styles.guestActionSection}>
+            <PrimaryGradientButton
+              label="Masuk ke Akun"
+              onPress={() => router.push('/login')}
+              style={{ marginBottom: 10 }}
+            />
+            <Pressable
+              onPress={() => router.push('/register')}
+              style={({ pressed }) => [
+                styles.registerGhostBtn,
+                pressed && styles.pressed,
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel="Daftar Akun Baru"
+            >
+              <Text style={styles.registerGhostText}>
+                Belum punya akun? Daftar Sekarang
+              </Text>
+            </Pressable>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -89,6 +165,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#64748B',
   },
+  email: {
+    fontSize: 11.5,
+    fontWeight: '500',
+    color: '#2587F2',
+    marginTop: 2,
+  },
   infoCard: {
     backgroundColor: '#F3F8FF',
     borderRadius: 18,
@@ -116,5 +198,50 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#E2ECFA',
     marginVertical: 12,
+  },
+  authActionSection: {
+    gap: 10,
+    marginTop: 6,
+  },
+  outlineBtn: {
+    backgroundColor: '#EFF5FE',
+    borderRadius: 14,
+    paddingVertical: 13,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#CFE2FE',
+  },
+  outlineBtnText: {
+    color: '#225BB5',
+    fontWeight: '700',
+    fontSize: 14,
+  },
+  logoutBtn: {
+    backgroundColor: '#FFF1F2',
+    borderRadius: 14,
+    paddingVertical: 13,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#FECDD3',
+  },
+  logoutBtnText: {
+    color: '#E11D48',
+    fontWeight: '700',
+    fontSize: 14,
+  },
+  guestActionSection: {
+    marginTop: 4,
+  },
+  registerGhostBtn: {
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  registerGhostText: {
+    color: '#2587F2',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  pressed: {
+    opacity: 0.8,
   },
 });

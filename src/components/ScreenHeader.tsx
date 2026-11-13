@@ -6,9 +6,10 @@ import { BackChevronIcon } from './Icons';
 interface ScreenHeaderProps {
   title: string;
   onBack?: () => void;
+  hideBack?: boolean;
 }
 
-export function ScreenHeader({ title, onBack }: ScreenHeaderProps) {
+export function ScreenHeader({ title, onBack, hideBack }: ScreenHeaderProps) {
   const handleBack = () => {
     if (onBack) {
       onBack();
@@ -23,15 +24,19 @@ export function ScreenHeader({ title, onBack }: ScreenHeaderProps) {
 
   return (
     <View style={styles.container}>
-      <Pressable
-        onPress={handleBack}
-        style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
-        hitSlop={12}
-        accessibilityRole="button"
-        accessibilityLabel="Kembali"
-      >
-        <BackChevronIcon size={22} color="#1E293B" />
-      </Pressable>
+      {!hideBack ? (
+        <Pressable
+          onPress={handleBack}
+          style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
+          hitSlop={12}
+          accessibilityRole="button"
+          accessibilityLabel="Kembali"
+        >
+          <BackChevronIcon size={22} color="#1E293B" />
+        </Pressable>
+      ) : (
+        <View style={styles.spacer} />
+      )}
       <Text style={styles.title}>{title}</Text>
       <View style={styles.spacer} />
     </View>

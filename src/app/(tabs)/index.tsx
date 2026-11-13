@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import {
   CleanWashLogo,
   CsAvatarBadge,
@@ -21,13 +21,19 @@ import {
   ArrowRightCircleIcon,
   RightChevronIcon,
 } from '../../components/Icons';
+import { useAuth } from '../../context/AuthContext';
 import { useOrder } from '../../context/OrderContext';
 import { SERVICE_LIST, ServiceId } from '../../types/order';
 
 export default function BerandaScreen() {
+  const { isLoggedIn } = useAuth();
   const { setServiceId, promoApplied, setPromoApplied } = useOrder();
   const [csModalVisible, setCsModalVisible] = useState(false);
   const [promoModalVisible, setPromoModalVisible] = useState(false);
+
+  if (!isLoggedIn) {
+    return <Redirect href="/login" />;
+  }
 
   const handleSelectService = (id: ServiceId) => {
     setServiceId(id);

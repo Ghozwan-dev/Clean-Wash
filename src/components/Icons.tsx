@@ -419,3 +419,118 @@ export function ProfileTabIcon({
     </Svg>
   );
 }
+
+export function MailIcon({ size = 20, color = '#2575E6' }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Rect
+        x={3}
+        y={5}
+        width={18}
+        height={14}
+        rx={3}
+        stroke={color}
+        strokeWidth={1.9}
+      />
+      <Polyline
+        points="3 7 12 13 21 7"
+        stroke={color}
+        strokeWidth={1.9}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
+export function PhoneIcon({ size = 20, color = '#2575E6' }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M22 16.92V19.92C22 20.48 21.54 20.95 20.97 20.92C10.43 20.35 3.65 13.57 3.08 3.03C3.05 2.46 3.52 2 4.08 2H7.08C7.58 2 8 2.37 8.08 2.86C8.25 3.96 8.56 5.03 9.02 6.03C9.17 6.36 9.08 6.75 8.81 6.99L7.14 8.66C8.69 11.72 11.28 14.31 14.34 15.86L16.01 14.19C16.25 13.92 16.64 13.83 16.97 13.98C17.97 14.44 19.04 14.75 20.14 14.92C20.63 15 21 15.42 21 15.92V16.92H22Z"
+        stroke={color}
+        strokeWidth={1.9}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
+export function LockIcon({ size = 20, color = '#2575E6' }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Rect
+        x={4}
+        y={11}
+        width={16}
+        height={10}
+        rx={2.5}
+        stroke={color}
+        strokeWidth={1.9}
+      />
+      <Path
+        d="M7 11V7C7 4.24 9.24 2 12 2C14.76 2 17 4.24 17 7V11"
+        stroke={color}
+        strokeWidth={1.9}
+        strokeLinecap="round"
+      />
+      <Circle cx={12} cy={16} r={1.5} fill={color} />
+    </Svg>
+  );
+}
+
+export function EyeIcon({ size = 20, color = '#64748B' }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"
+        stroke={color}
+        strokeWidth={1.9}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Circle cx={12} cy={12} r={3} stroke={color} strokeWidth={1.9} />
+    </Svg>
+  );
+}
+
+export function EyeOffIcon({ size = 20, color = '#64748B' }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M17.94 17.94C16.23 19.24 14.19 20 12 20C5 20 1 12 1 12C2.24 9.68 4.09 7.74 6.32 6.44M9.9 4.24C10.58 4.08 11.28 4 12 4C19 4 23 12 23 12C21.99 13.88 20.48 15.51 18.66 16.69"
+        stroke={color}
+        strokeWidth={1.9}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M1 1L23 23"
+        stroke={color}
+        strokeWidth={1.9}
+        strokeLinecap="round"
+      />
+    </Svg>
+  );
+}
+
+export function UserIcon({ size = 20, color = '#2575E6' }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Circle
+        cx={12}
+        cy={7}
+        r={4}
+        stroke={color}
+        strokeWidth={1.9}
+      />
+      <Path
+        d="M4 21C4 17.13 7.58 14 12 14C16.42 14 20 17.13 20 21"
+        stroke={color}
+        strokeWidth={1.9}
+        strokeLinecap="round"
+      />
+    </Svg>
+  );
+}
