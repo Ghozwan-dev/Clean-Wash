@@ -20,8 +20,15 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "output": "single"
+      "favicon": "./public/icon-192.png",
+      "output": "single",
+      "name": "CleanWash",
+      "shortName": "CleanWash",
+      "description": "Layanan Laundry Cepat & Praktis",
+      "themeColor": "#1974E8",
+      "backgroundColor": "#EFF5FE",
+      "display": "standalone",
+      "orientation": "portrait"
     },
     "plugins": [
       "expo-router"
